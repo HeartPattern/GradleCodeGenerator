@@ -7,7 +7,14 @@ import io.heartpattern.gcg.api.CodeGenerator;
 import java.util.Collection;
 import java.util.stream.Collectors;
 
+/**
+ * Helper class that generate java source code.
+ */
 public interface JavaCodeGenerator extends CodeGenerator {
+    /**
+     * Generate collection of java file using JavaPoet
+     * @return Generated JavaFile
+     */
     Collection<JavaFile> generateJava();
 
     @Override

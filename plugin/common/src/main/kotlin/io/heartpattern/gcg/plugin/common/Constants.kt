@@ -1,4 +1,4 @@
-package io.heartpattern.gcg.plugin
+package io.heartpattern.gcg.plugin.common
 
 const val generatedSourceSetDir = "src/%s/generated"
 const val generatorSourceSetName = "%sGenerator"

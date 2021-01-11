@@ -1,4 +1,4 @@
-package io.heartpattern.gcg.plugin
+package io.heartpattern.gcg.plugin.common
 
 import io.heartpattern.gcg.api.CodeGenerator
 import io.heartpattern.gcg.api.Generator

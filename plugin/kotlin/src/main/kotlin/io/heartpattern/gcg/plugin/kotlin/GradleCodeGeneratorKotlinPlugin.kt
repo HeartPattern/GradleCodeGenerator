@@ -1,7 +1,7 @@
 package io.heartpattern.gcg.plugin.kotlin
 
-import io.heartpattern.gcg.plugin.GradleCodeGeneratorCommonPlugin
-import io.heartpattern.gcg.plugin.apiVersion
+import io.heartpattern.gcg.plugin.common.GradleCodeGeneratorCommonPlugin
+import io.heartpattern.gcg.plugin.common.apiVersion
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.getByName

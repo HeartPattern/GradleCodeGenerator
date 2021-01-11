@@ -1,4 +1,4 @@
-package io.heartpattern.gcg.plugin
+package io.heartpattern.gcg.plugin.common
 
 import org.gradle.api.DomainObjectCollection
 import org.gradle.api.Plugin
@@ -9,7 +9,6 @@ import org.gradle.api.plugins.JavaPlugin
 import org.gradle.api.tasks.SourceSet
 import org.gradle.api.tasks.SourceSetContainer
 import org.gradle.kotlin.dsl.apply
-import org.gradle.kotlin.dsl.container
 import org.gradle.kotlin.dsl.create
 import org.gradle.kotlin.dsl.getByType
 

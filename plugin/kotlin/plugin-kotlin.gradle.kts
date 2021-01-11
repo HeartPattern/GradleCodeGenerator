@@ -10,7 +10,7 @@ repositories{
 }
 
 dependencies{
-    api("org.jetbrains.kotlin","kotlin-gradle-plugin-api","1.4.21")
+    api("org.jetbrains.kotlin","kotlin-gradle-plugin","1.4.21")
     api(project(":plugin-common"))
 }
 

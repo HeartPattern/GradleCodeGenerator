@@ -6,11 +6,11 @@ import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.getByName
 import org.jetbrains.kotlin.gradle.dsl.KotlinSingleJavaTargetExtension
-import org.jetbrains.kotlin.gradle.plugin.KotlinPlatformJvmPlugin
+import org.jetbrains.kotlin.gradle.plugin.KotlinPluginWrapper
 
 class GradleCodeGeneratorKotlinPlugin : Plugin<Project> {
     override fun apply(target: Project) {
-        target.plugins.apply(KotlinPlatformJvmPlugin::class.java)
+        target.plugins.apply(KotlinPluginWrapper::class.java)
         val commonPlugin = target.plugins.apply(GradleCodeGeneratorCommonPlugin::class.java)
         val compilations = target.extensions.getByName<KotlinSingleJavaTargetExtension>("kotlin").target.compilations
 
@@ -22,6 +22,9 @@ class GradleCodeGeneratorKotlinPlugin : Plugin<Project> {
             this@all.dependsOn(generatingSourceSet.classesTaskName)
         }
 
-        target.dependencies.add("generatorImplementation", "io.heartpattern.gradle-code-generator:api-kotlin:$apiVersion")
+        target.dependencies.add(
+            "generatorImplementation",
+            "io.heartpattern.gradle-code-generator:api-kotlin:$apiVersion"
+        )
     }
 }

@@ -1,17 +1,9 @@
 plugins {
     java
     `maven-publish`
+    deploy
 }
 
 repositories {
     mavenCentral()
-}
-
-publishing{
-    publications{
-        create<MavenPublication>("maven"){
-            artifactId = "api-common"
-            from(components["java"])
-        }
-    }
 }

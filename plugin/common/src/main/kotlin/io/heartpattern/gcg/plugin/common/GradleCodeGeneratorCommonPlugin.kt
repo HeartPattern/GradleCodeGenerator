@@ -11,6 +11,7 @@ import org.gradle.api.tasks.SourceSetContainer
 import org.gradle.kotlin.dsl.apply
 import org.gradle.kotlin.dsl.create
 import org.gradle.kotlin.dsl.getByType
+import java.io.File
 
 class GradleCodeGeneratorCommonPlugin : Plugin<Project> {
     private val generatorSourceSetNames = HashSet<String>()
@@ -45,6 +46,7 @@ class GradleCodeGeneratorCommonPlugin : Plugin<Project> {
 
             // Create generator task
             val generateCodeTask = target.createGeneratorTask(generatorSourceSet, this)
+            target.createCleanGeneratedCodeTask(this)
 
             generatorSourceSets.add(generatorSourceSet)
             generateCodeTasks.add(generateCodeTask)
@@ -65,6 +67,12 @@ class GradleCodeGeneratorCommonPlugin : Plugin<Project> {
         return tasks.create<GenerateCodeTask>(generatorTaskName.format(targetSourceSet.name.upperFirst())) {
             generatingSourceSetName.set(generatorSourceSet.name)
             targetSourceSetName.set(targetSourceSet.name)
+        }
+    }
+
+    private fun Project.createCleanGeneratedCodeTask(targetSourceSet: SourceSet): CleanGeneratedCodeTask{
+        return tasks.create<CleanGeneratedCodeTask>(cleanGeneratorTaskName.format(targetSourceSet.name.upperFirst())){
+            targetDirectory.set(file(generatedSourceSetDir.format(targetSourceSet.name)))
         }
     }
 

@@ -42,6 +42,8 @@ abstract class GenerateCodeTask : DefaultTask() {
 
     @TaskAction
     fun generate() {
+        outputDir.deleteRecursively()
+
         val targetUrls = generatingSourceSet
             .output
             .files

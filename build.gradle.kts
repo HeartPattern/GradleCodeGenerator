@@ -4,5 +4,5 @@ plugins {
 
 allprojects{
     group = "io.heartpattern.gradle-code-generator"
-    version = "1.0.0"
+    version = "1.0.1"
 }

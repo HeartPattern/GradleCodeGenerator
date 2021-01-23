@@ -9,6 +9,7 @@ import org.gradle.api.provider.Property
 import org.gradle.api.tasks.*
 import org.gradle.kotlin.dsl.getByType
 import org.reflections.Reflections
+import org.reflections.ReflectionsException
 import org.reflections.scanners.TypeAnnotationsScanner
 import org.reflections.util.ConfigurationBuilder
 import java.io.File
@@ -51,7 +52,8 @@ abstract class GenerateCodeTask : DefaultTask() {
             .map { it.toURI().toURL() }
             .toTypedArray()
 
-        val dependencies = generatingSourceSet.compileClasspath.files
+        val dependencies = generatingSourceSet.runtimeClasspath
+            .files
             .map { it.toURI().toURL() }
             .toTypedArray()
 
@@ -59,12 +61,18 @@ abstract class GenerateCodeTask : DefaultTask() {
 
         val loader = URLClassLoader(targetUrls + dependencies, contextualClassLoader)
 
-        Reflections(
-            ConfigurationBuilder()
-                .addClassLoaders(loader, contextualClassLoader)
-                .addUrls(*loader.urLs)
-                .addScanners(TypeAnnotationsScanner())
-        ).getTypesAnnotatedWith(Generator::class.java).forEach { type ->
+        val targets = try {
+            Reflections(
+                ConfigurationBuilder()
+                    .addClassLoaders(loader, contextualClassLoader)
+                    .addUrls(*targetUrls)
+                    .addScanners(TypeAnnotationsScanner())
+            ).getTypesAnnotatedWith(Generator::class.java)
+        } catch (e: ReflectionsException) { // No target class is found
+            return
+        }
+
+        targets.forEach { type ->
             generate(type.kotlin)
         }
     }
